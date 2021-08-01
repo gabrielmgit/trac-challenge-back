@@ -35,11 +35,12 @@ class App {
   }
 
   database() {
-    if (!process.env.DB_PASS || !process.env.DB_USER) {
+    if (!process.env.DB_URL) {
       process.exit(1);
     }
 
-    const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.yj0z7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+    const DB_URL = process.env.DB_URL;
+
     mongoose
       .connect(DB_URL, {
         useNewUrlParser: true,

@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import StatusCode from "status-code-enum";
-import { IAsset, IUnit, NewRegistry } from "../../utils/types";
+import { IAsset, NewRegistry } from "../../utils/types";
 import Unit from "../model/Unit";
 import Asset from "../model/Asset";
 import mongoose from "mongoose";
+import { BaseController } from "./BaseController";
 
-class AssetController {
+class AssetController implements BaseController {
   async store(req: Request, res: Response): Promise<Response> {
     try {
       const data: IAsset[] = [];
@@ -29,7 +30,7 @@ class AssetController {
     } catch (err) {
       return res
         .status(StatusCode.ClientErrorUnprocessableEntity)
-        .send("unprocessable Asset");
+        .send("unprocessable asset");
     }
   }
 
@@ -49,7 +50,7 @@ class AssetController {
     } catch (err) {
       return res
         .status(StatusCode.ClientErrorUnprocessableEntity)
-        .send("unprocessable Asset");
+        .send("unprocessable asset");
     }
   }
 

@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 import StatusCode from "status-code-enum";
 import { ICompany, NewRegistry } from "../../utils/types";
 import Company from "../model/Company";
+import { BaseController } from "./BaseController";
 
-class CompanyController {
+class CompanyController implements BaseController {
   async store(req: Request, res: Response): Promise<Response> {
     try {
       const newCompany: NewRegistry<ICompany> = req.body;
@@ -26,7 +27,7 @@ class CompanyController {
     try {
       const data: ICompany = await Company.findById(req.params.company_id)
         .populate({path: "units", populate: { path: "assets"}})
-        // .populate("users")
+        //TODO: .populate("users") when we have it
         .exec();
       return res.json(data);
     } catch (err) {
@@ -64,7 +65,7 @@ class CompanyController {
     } catch (err) {
       return res
         .status(StatusCode.ClientErrorUnprocessableEntity)
-        .send("unprocessable Asset");
+        .send("unprocessable asset");
     }
   }
 }

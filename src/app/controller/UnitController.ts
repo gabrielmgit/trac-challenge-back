@@ -4,8 +4,9 @@ import { IUnit, NewRegistry } from "../../utils/types";
 import Company from "../model/Company";
 import Unit from "../model/Unit";
 import mongoose from "mongoose";
+import { BaseController } from "./BaseController";
 
-class UnitController {
+class UnitController implements BaseController {
   async store(req: Request, res: Response): Promise<Response> {
     try {
       const data: IUnit[] = [];
@@ -75,7 +76,7 @@ class UnitController {
     } catch (err) {
       return res
         .status(StatusCode.ClientErrorUnprocessableEntity)
-        .send("unprocessable Asset");
+        .send("unprocessable asset");
     }
   }
 }
